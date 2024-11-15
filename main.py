@@ -17,15 +17,22 @@ class DatabaseMonitorApp(QtWidgets.QMainWindow):
         # Set up menu
         self.init_menu()
 
+        # Создаем центральный виджет и компоновщик
+        central_widget = QtWidgets.QWidget(self)
+        self.setCentralWidget(central_widget)
+        layout = QtWidgets.QVBoxLayout(central_widget)
+
         # Set up monitor table
         self.monitor_table = QtWidgets.QTableWidget(self)
         self.monitor_table.setColumnCount(5)
         self.monitor_table.setHorizontalHeaderLabels(
-            ["Запуск", "Имя задачи", "Результат", "Последний запуск", "Периодичность"])
-        self.monitor_table.setGeometry(10, 30, 780, 500)
+            ["Активировать", "Наименование", "Результат", "Последний запуск", "Периодичность"])
 
         # Устанавливаем режим растягивания колонок
         self.monitor_table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+
+        # Добавляем таблицу в компоновщик
+        layout.addWidget(self.monitor_table)
 
         # Timer for periodic job execution
         self.job_timers = {}
@@ -157,7 +164,7 @@ class DbSettingsDialog(QtWidgets.QDialog):
 
         layout = QtWidgets.QFormLayout(self)
         self.host_input = QtWidgets.QLineEdit(self.settings.get("host", ""))
-        self.port_input = QtWidgets.QLineEdit(self.settings.get("port", "5432"))
+        self.port_input = QtWidgets.QLineEdit(str(self.settings.get("port", "5432")))
         self.dbname_input = QtWidgets.QLineEdit(self.settings.get("dbname", ""))
         self.user_input = QtWidgets.QLineEdit(self.settings.get("user", ""))
         self.password_input = QtWidgets.QLineEdit(self.settings.get("password", ""))
