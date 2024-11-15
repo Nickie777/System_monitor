@@ -7,7 +7,7 @@ from PyQt5 import QtWidgets, QtGui, QtCore
 class DatabaseMonitorApp(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Database Monitor")
+        self.setWindowTitle("OUTSS Monitor")
         self.setGeometry(100, 100, 800, 600)
 
         # Load settings and jobs
@@ -21,8 +21,11 @@ class DatabaseMonitorApp(QtWidgets.QMainWindow):
         self.monitor_table = QtWidgets.QTableWidget(self)
         self.monitor_table.setColumnCount(5)
         self.monitor_table.setHorizontalHeaderLabels(
-            ["Activate", "Job Name", "Success", "Last Execution Time", "Frequency"])
+            ["Запуск", "Имя задачи", "Результат", "Последний запуск", "Периодичность"])
         self.monitor_table.setGeometry(10, 30, 780, 500)
+
+        # Устанавливаем режим растягивания колонок
+        self.monitor_table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
 
         # Timer for periodic job execution
         self.job_timers = {}
